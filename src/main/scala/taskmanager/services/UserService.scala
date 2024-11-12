@@ -22,5 +22,11 @@ object UserService {
   }
   def addUserToLoginList(user: User): Unit = LoginManager.loginUser(user)
   def removeUserFromLoginList(user: User): Unit = LoginManager.logoutUser(user)
+  //collect takes a partial function, allowing us to specify only the cases we want.
+  def getLoggedInUsers: Set[User] = {
+    LoginManager.getLoginUsersData.collect {
+      case user if getUserData(user).isSuccess => getUserData(user).get
+    }
+  }
   def isUserLoggedIn(user: User): Boolean = LoginManager.isUserLoggedIn(user)
 }

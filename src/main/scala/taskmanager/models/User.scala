@@ -7,4 +7,13 @@ class User (
            val username: String,
            val password: String,
            val taskList: List[Task]
-           )
+           ) {
+  def addTask(task: Task): User = {
+    new User(userId, username, password, taskList :+ task)
+  }
+ 
+  def deleteTask(deleteTaskId: UUID): User = {
+    val updatedTaskList = taskList.filterNot(_.taskId == deleteTaskId)
+    new User(userId, username, password, updatedTaskList)
+  }
+}

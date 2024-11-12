@@ -3,7 +3,10 @@ package taskmanager.controllers
 import taskmanager.models.User
 import taskmanager.services.UserService
 import org.mindrot.jbcrypt.BCrypt
-import scala.util.{Success, Failure}
+import taskmanager.CLIHandler
+import taskmanager.userinterface.TaskManagement
+
+import scala.util.{Failure, Success}
 
 object UserController {
   private def encryptPassword(password: String): String = {
@@ -29,12 +32,13 @@ object UserController {
         if(verifyPassword(user.password, password)){
           UserService.addUserToLoginList(user)
           println("You logged in successfully!")
+          TaskManagement.commenceTaskInterface()
         } else{
           println("Invalid Credentials.")
         }
       case Failure(exception: Exception) => println(s"An exception occurred while logging in: ${exception.getMessage}")
   }
-  def logoutUser(username: String, password: String): Unit = {
+  def logoutUser(username: String): Unit = {
     UserService.getUserDataByUsername(username) match
       case Success(user: User) =>
         UserService.removeUserFromLoginList(user)
@@ -47,6 +51,5 @@ object UserController {
         UserService.deleteUserData(user)
         println("You were removed from the system")
       case Failure(exception: Exception) => println(s"An exception occurred while removing: ${exception.getMessage}")
-
   }
 }
