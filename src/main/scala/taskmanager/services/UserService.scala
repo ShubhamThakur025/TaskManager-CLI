@@ -1,14 +1,14 @@
 package taskmanager.services
 
-import taskmanager.models.User
-import taskmanager.repositories.UserRepository
+import taskmanager.models.{Task, User}
+import taskmanager.repositories.{TaskRepository, UserRepository}
 
 import java.util.UUID
 import scala.util.{Failure, Success, Try}
 
 object UserService {
-  def registerUser(user: User): Unit = UserRepository.createUser(user = user, userId = user.userId)
-  def updateUserData(user: User): Unit = UserRepository.updateUser(user = user, userId = user.userId)
+  def registerUser(user: User): Unit = UserRepository.createUser(user = user)
+  def updateUserData(user: User): Unit = UserRepository.updateUser(user = user)
   def deleteUserData(user: User): Unit = UserRepository.deleteUser(user.userId)
   def getUserData(userId: UUID): Try[User] = {
     UserRepository.readUser(userId) match
@@ -22,11 +22,12 @@ object UserService {
   }
   def addUserToLoginList(user: User): Unit = LoginManager.loginUser(user)
   def removeUserFromLoginList(user: User): Unit = LoginManager.logoutUser(user)
-  //collect takes a partial function, allowing us to specify only the cases we want.
   def getLoggedInUsers: Set[User] = {
     LoginManager.getLoginUsersData.collect {
       case user if getUserData(user).isSuccess => getUserData(user).get
     }
   }
   def isUserLoggedIn(user: User): Boolean = LoginManager.isUserLoggedIn(user)
+  def readTasksOfUser(user: User): List[Task] = UserRepository.readTasksOfUser(user)
+  
 }

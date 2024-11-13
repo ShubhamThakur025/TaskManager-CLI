@@ -1,7 +1,7 @@
 package taskmanager.controllers
 
-import taskmanager.models.User
-import taskmanager.services.UserService
+import taskmanager.models.{Task, User}
+import taskmanager.services.{TaskService, UserService}
 import org.mindrot.jbcrypt.BCrypt
 import taskmanager.CLIHandler
 import taskmanager.userinterface.TaskManagement
@@ -52,4 +52,5 @@ object UserController {
         println("You were removed from the system")
       case Failure(exception: Exception) => println(s"An exception occurred while removing: ${exception.getMessage}")
   }
+  def getAllTasksOfUser(user: User): List[Task] = UserService.readTasksOfUser(user)
 }

@@ -1,7 +1,6 @@
 package taskmanager.userinterface
 
 import taskmanager.CLIHandler
-
 import scala.io.StdIn.readLine
 import scala.util.control.Breaks.{break, breakable}
 
@@ -20,6 +19,14 @@ object UserAuthentication {
     println("=================================")
     println("Welcome to our Task Manager tool!")
     println("=================================")
+    val asciiArt = """ _____         _       __  __
+                     ||_   _|_ _ ___| | __  |  \/  | __ _ _ __   __ _  __ _  ___ _ __
+                     |  | |/ _` / __| |/ /  | |\/| |/ _` | '_ \ / _` |/ _` |/ _ \ '__|
+                     |  | | (_| \__ \   <   | |  | | (_| | | | | (_| | (_| |  __/ |
+                     |  |_|\__,_|___/_|\_\  |_|  |_|\__,_|_| |_|\__,_|\__, |\___|_|
+                     |                                               |___/
+                     |""".stripMargin
+    println(asciiArt)
   }
 
   def commenceUserAuthInterface(): Unit = {

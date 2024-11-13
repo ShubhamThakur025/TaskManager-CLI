@@ -14,12 +14,11 @@ object TaskController {
     println("Task successfully deleted.")
   }
   def markTaskDone(task: Task, user: User): Unit = {
-    TaskService.setStatusDone(task)
+    TaskService.setStatusDone(task, user)
     println("Task completed! 🥳")
   }
   def markTestPending(task: Task, user: User): Unit = {
-    TaskService.setStatusPending(task)
+    TaskService.setStatusPending(task, user)
     println("Task marked Pending...")
   }
-  def getAllTasksOfUser(user: User): List[Task] = TaskService.readTasksOfUser(user)
 }

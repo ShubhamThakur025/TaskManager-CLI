@@ -51,11 +51,16 @@ object CLIHandler {
   def showAllTasksOfUser(): List[Task] = {
     println("Fetching your tasks....")
     val loggedInUserData = UserService.getLoggedInUsers.head
-    val userTasks = TaskController.getAllTasksOfUser(loggedInUserData)
-    var count = 0
+    val userTasks = UserController.getAllTasksOfUser(loggedInUserData)
+    var count = 1
     if(userTasks.nonEmpty){
-      userTasks.foreach(task => println(s"{$count}: task.task"))
-      count += 1
+      println("Your tasks list:")
+      println("=================")
+      userTasks.foreach(task => {
+        println(s"$count: ${task.task} | Status: ${task.taskStatus}")
+        count += 1
+      })
+      println("=================")
     }
     userTasks
   }
@@ -70,44 +75,35 @@ object CLIHandler {
   def markTaskDone(): Unit = {
     val loggedInUserData = UserService.getLoggedInUsers.head
     val userTasks = showAllTasksOfUser()
-    val index = enterTaskNumber()
-    var init = 1
-    breakable{
-      for (task <- userTasks) {
-        if init == index then
-          TaskController.markTaskDone(task, loggedInUserData)
-          break
-        init += 1
-      }
+    val index = enterTaskNumber() - 1
+    if (index >= 0 && index < userTasks.length) {
+      val task = userTasks(index)
+      TaskController.markTaskDone(task, loggedInUserData)
+    } else {
+      println("Invalid task number. Please try again.")
     }
   }
 
   def markTaskPending(): Unit = {
     val loggedInUserData = UserService.getLoggedInUsers.head
     val userTasks = showAllTasksOfUser()
-    val index = enterTaskNumber()
-    var init = 1
-    breakable {
-      for (task <- userTasks) {
-        if init == index then
-          TaskController.markTestPending(task, loggedInUserData)
-          break
-        init += 1
-      }
+    val index = enterTaskNumber() - 1
+    if (index >= 0 && index < userTasks.length) {
+      val task = userTasks(index)
+      TaskController.markTestPending(task, loggedInUserData)
+    } else {
+      println("Invalid task number. Please try again.")
     }
   }
   def deleteTask(): Unit = {
     val loggedInUserData = UserService.getLoggedInUsers.head
     val userTasks = showAllTasksOfUser()
-    val index = enterTaskNumber()
-    var init = 1
-    breakable {
-      for (task <- userTasks) {
-        if init == index then
-          TaskController.deleteTask(task, loggedInUserData)
-          break
-        init += 1
-      }
+    val index = enterTaskNumber() - 1
+    if (index >= 0 && index < userTasks.length) {
+      val taskToDelete = userTasks(index)
+      TaskController.deleteTask(taskToDelete, loggedInUserData)
+    } else {
+      println("Invalid task number. Please try again.")
     }
   }
   
