@@ -1,6 +1,6 @@
 # Task Manager CLI
 
-![Intro Image](\assets\banner.png)
+![Intro Image](./assets/banner.png)
 
 Welcome to the **Task Manager CLI**! 🎉
 
