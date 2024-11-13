@@ -1,11 +1,9 @@
 package taskmanager.controllers
 
 import taskmanager.models.{Task, User}
-import taskmanager.services.{TaskService, UserService}
+import taskmanager.services.UserService
 import org.mindrot.jbcrypt.BCrypt
-import taskmanager.CLIHandler
 import taskmanager.userinterface.TaskManagement
-
 import scala.util.{Failure, Success}
 
 object UserController {
@@ -24,17 +22,17 @@ object UserController {
     val hashedPassword: String = encryptPassword(password)
     val newUser: User = new User(username = username, password = hashedPassword, taskList = List.empty)
     UserService.registerUser(newUser)
-    println("You registered successfully!")
+    println("You registered successfully! 🥳")
   }
   def loginUser(username: String, password: String): Unit = {
     UserService.getUserDataByUsername(username) match
       case Success(user: User) =>
         if(verifyPassword(user.password, password)){
           UserService.addUserToLoginList(user)
-          println("You logged in successfully!")
+          println("You logged in successfully! 🥳")
           TaskManagement.commenceTaskInterface()
         } else{
-          println("Invalid Credentials.")
+          println("Invalid Credentials. 🔑")
         }
       case Failure(exception: Exception) => println(s"An exception occurred while logging in: ${exception.getMessage}")
   }
@@ -42,14 +40,14 @@ object UserController {
     UserService.getUserDataByUsername(username) match
       case Success(user: User) =>
         UserService.removeUserFromLoginList(user)
-        println("You logged out successfully!")
+        println("You logged out successfully! 🥳")
       case Failure(exception: Exception) => println(s"An exception occurred while logging out: ${exception.getMessage}")
   }
   def deleteUser(username: String): Unit = {
     UserService.getUserDataByUsername(username) match
       case Success(user: User) =>
         UserService.deleteUserData(user)
-        println("You were removed from the system")
+        println("You were removed from the system 🥺")
       case Failure(exception: Exception) => println(s"An exception occurred while removing: ${exception.getMessage}")
   }
   def getAllTasksOfUser(user: User): List[Task] = UserService.readTasksOfUser(user)

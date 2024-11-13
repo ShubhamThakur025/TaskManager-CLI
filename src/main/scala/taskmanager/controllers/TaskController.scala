@@ -5,13 +5,15 @@ import taskmanager.services.TaskService
 
 object TaskController {
   def createNewTask(task: String, user: User): Unit = {
-    val newTask: Task = new Task(task = task, taskStatus = Pending, userId = user.userId)
-    TaskService.createNewTask(newTask, user)
-    println("Task successfully created.")
+    if task.nonEmpty then
+      val newTask: Task = new Task(task = task, taskStatus = Pending, userId = user.userId)
+      TaskService.createNewTask(newTask, user)
+      println("Task successfully created.")
+    else println("Emptiness can't be a task 😂")
   }
   def deleteTask(task: Task, user: User): Unit = {
     TaskService.deleteTaskOfUser(user, task)
-    println("Task successfully deleted.")
+    println("Task successfully deleted. 😭")
   }
   def markTaskDone(task: Task, user: User): Unit = {
     TaskService.setStatusDone(task, user)
@@ -19,6 +21,6 @@ object TaskController {
   }
   def markTestPending(task: Task, user: User): Unit = {
     TaskService.setStatusPending(task, user)
-    println("Task marked Pending...")
+    println("Task marked Pending 🤔..." )
   }
 }

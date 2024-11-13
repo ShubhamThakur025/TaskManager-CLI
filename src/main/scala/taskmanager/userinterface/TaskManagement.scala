@@ -1,7 +1,6 @@
 package taskmanager.userinterface
 
 import taskmanager.CLIHandler
-
 import scala.io.StdIn.readLine
 import scala.util.control.Breaks.{break, breakable}
 
@@ -17,7 +16,9 @@ object TaskManagement {
         |6. Logout from the application.
         |Others: Invalid Keys. Avoid them.
         |""".stripMargin
+    println("========================================================")
     println(s"Press the key to perform the appropriate action. $menu")
+    println("========================================================")
   }
 
   private def start(): Unit = {

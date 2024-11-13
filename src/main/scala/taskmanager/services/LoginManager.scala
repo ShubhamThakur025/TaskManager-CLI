@@ -1,7 +1,6 @@
 package taskmanager.services
 
 import taskmanager.models.User
-
 import java.util.UUID
 
 object LoginManager {

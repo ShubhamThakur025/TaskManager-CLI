@@ -1,8 +1,7 @@
 package taskmanager.services
 
 import taskmanager.models.{Task, User}
-import taskmanager.repositories.{TaskRepository, UserRepository}
-
+import taskmanager.repositories.UserRepository
 import java.util.UUID
 import scala.util.{Failure, Success, Try}
 

@@ -1,7 +1,6 @@
 package taskmanager.repositories
 
 import taskmanager.models.{Task, User}
-
 import java.util.UUID
 
 object UserRepository {
@@ -19,7 +18,7 @@ object UserRepository {
     registeredUsers -= userId
   }
   def readTasksOfUser (user: User): List[Task] = user.taskList
-  def deleteTaskOfUser (user: User, task: Task): User = {    
+  def deleteTaskOfUser (user: User, task: Task): User = {
     val updatedUser = user.deleteTask(task.taskId)
     UserRepository.updateUser(updatedUser)
     updatedUser

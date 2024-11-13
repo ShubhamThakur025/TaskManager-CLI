@@ -12,6 +12,8 @@
     - <u>Exit:</u> Pressing any other key would close the application. 
     - Here, we need to maintain a data structure to note the registered users. Since we're not utilizing any database, the data won't be persisting. We can add a set of dummy users in the data structure while the program initializes just to populate it. A good choice would probably be a **HashMap(userId -> username)**. Now, how'd we track the users who've logged in? There are two major options: We can put a flag in the model itself: isLogin: Boolean. We can update it or A separate data structure to list logged-in users.  The first approach feels a bit optimal. This is because checking isLogin is far more efficient than dedicating a separate data structure for listing. However, this statement betrays us the second we realize that this approach violates the functional paradigm. Therefore, we'll be following the second approach i.e. Maintaining a data structure. We shall be creating a LoginManager to maintain a global state of logged-in users.
 
+2. #### Task Management:
+   The User would be presented with choices to either create a task, mark tasks done, mark tasks pending or delete them.
 ### Repositories
 Contain the core storage and CRUD operations.
 
